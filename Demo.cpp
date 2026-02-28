@@ -11,7 +11,7 @@ int main() {
     // Ejecutar lógica
     procesarPuntoCalibracion("TERM-01", subida, bajada, mis_reps);
 
-    // --- PERSISTENCIA ---
+   
     std::ofstream archivo("reporte_calibracion.csv", std::ios::app);
     if (archivo.is_open()) {
         archivo << "ID,Setpoint,Histeresis\n";
