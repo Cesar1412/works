@@ -15,26 +15,30 @@ public:
     virtual T calcularError(T lectura, T patron) = 0;
 };
 
-// Clase Base 
+// ORDEN DE CREACION DE ADENTRO HACIA AFUERA
+// ORDEN DE DESTRUCCION ( DE AFUERA HACIA ADENTRO)
+// IProcesadorCalibracion -> Instrumento -> CalibradorTermico
+
 template <typename T>
-class Instrumento : public IProcesadorCalibracion<T> {
+
+class Instrumento : public IProcesadorCalibracion<T> { // HERENCIA IProcesadorCalibracion -> Instrumento 
 protected:
     std::string id;
-    std::vector<T> repetibilidad; // Datos de Rep_15, Rep_18, etc.
+    std::vector<T> repetibilidad; // Datos de repeticiones 
 
 public:
-    Instrumento(std::string _id) : id(_id) {}
+    Instrumento(std::string _id) : id(_id) {} // Cnstructor - id(_id) lista de inicializacion 
     
     void setRepetibilidad(const std::vector<T>& datos) {
         repetibilidad = datos;
     }
 
-    // Implementación de la Interfaz
+    // Implementacion de la Interfaz
     T calcularError(T lectura, T patron) override {
         return lectura - patron;
     }
 
-    // Método para calcular Desviación Estándar (Repetibilidad)
+    //Desviación Estandar
     T obtenerDesviacion() {
         if (repetibilidad.empty()) return 0;
         T suma = 0;
